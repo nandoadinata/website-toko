@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eleanor — Signature Drop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#0f0f10] text-white" style="font-family: 'Inter', sans-serif;">
+
+  <!-- Navbar -->
+  <header class="flex justify-between items-center px-5 md:px-10 py-5 absolute w-full z-10">
+    <div class="flex items-center gap-3">
+      <img src="E.png" alt="Eleanor Logo" class="w-8 h-8 md:w-10 md:h-10">
+      <h1 class="text-xs md:text-sm tracking-[0.3em] font-light">ELEANOR</h1>
+    </div>
+    <div class="flex gap-2 md:gap-3">
+      <a href="#" class="border border-white px-3 md:px-5 py-2 text-[10px] md:text-xs">SHOPEE</a>
+      <a href="https://wa.me/6283849868906?text=Halo%20Eleanor,%20saya%20ingin%20order%20Essential%20Shirt%20Drop%2001%20(Size:%20)%20(Jumlah:%20)" class="bg-white text-black px-3 md:px-5 py-2 text-[10px] md:text-xs">WA</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="h-screen flex items-center justify-center text-center px-5">
+    <div>
+      <img src="E.png" class="w-24 md:w-30 mx-auto mb-6 opacity-100">
+      <h2 class="text-3xl md:text-7xl font-light mb-4" style="font-family: 'Playfair Display', serif;">
+        Eleanor Essential
+      </h2>
+      <p class="text-xs md:text-sm text-gray-400 mb-8 max-w-md mx-auto">
+        The first signature release. Built on silence, defined by presence.
+      </p>
+      <div class="flex flex-col md:flex-row justify-center gap-3">
+        <a href="#" class="border border-white px-6 py-3 text-xs">SHOPEE</a>
+        <a href="https://wa.me/6283849868906?text=Halo%20Eleanor,%20saya%20ingin%20order%20Essential%20Shirt%20Drop%2001%20(Size:%20)%20(Jumlah:%20)" class="bg-white text-black px-6 py-3 text-xs">WHATSAPP</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product -->
+  <section class="px-5 md:px-10 py-20 grid md:grid-cols-2 gap-10 items-center">
+    <div class="h-[300px] md:h-[520px] bg-[#1a1a1c] relative overflow-hidden">
+      <div id="slider" class="flex h-full transition-transform duration-700 w-full">
+        <img src="1.1.jpg" class="w-full min-w-full object-cover" />
+        <img src="1.jpg" class="w-full min-w-full object-cover" />
+        <img src="3.jpg" class="w-full min-w-full object-cover" />
+		<img src="4.jpg" class="w-full min-w-full object-cover" />
+      </div>
+      <div id="dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2"></div>
+    </div>
+
+    <div>
+      <h3 class="text-2xl md:text-4xl mb-4" style="font-family: 'Playfair Display', serif;">
+        Essential Shirt — Drop 01
+      </h3>
+      <p class="text-gray-400 text-sm mb-6">
+        Designed with precision and intention. Understated luxury.
+      </p>
+
+      <div class="space-y-2 text-[11px] text-gray-500 mb-6">
+        <p>PREMIUM COTTON</p>
+        <p>OVERSIZED STRUCTURE</p>
+        <p>LIMITED QUANTITY</p>
+      </div>
+
+      <p class="text-lg md:text-2xl mb-6">Rp 1??.000</p>
+
+      <div class="flex flex-col md:flex-row gap-3">
+        <a href="#" class="border border-white px-6 py-3 text-xs text-center">SHOPEE</a>
+        <a href="https://wa.me/6283849868906?text=Halo%20Eleanor,%20saya%20ingin%20order%20Essential%20Shirt%20Drop%2001%20(Size:%20)%20(Jumlah:%20)" class="bg-white text-black px-6 py-3 text-xs">WHATSAPP</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Countdown -->
+  <section class="text-center py-16 border-t border-gray-800 px-5">
+    <h2 class="text-sm md:text-xl mb-4 tracking-widest">DROP STARTS IN</h2>
+    <div id="countdown" class="text-xl md:text-3xl tracking-widest"></div>
+  </section>
+
+  <script>
+    // Countdown
+    const launchDate = new Date("2026-06-07T24:00:00").getTime();
+    const countdown = document.getElementById("countdown");
+
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+
+      const d = Math.floor(distance / (1000*60*60*24));
+      const h = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
+      const m = Math.floor((distance % (1000*60*60))/(1000*60));
+      const s = Math.floor((distance % (1000*60))/1000);
+
+      countdown.innerHTML = `${d}D : ${h}H : ${m}M : ${s}S`;
+      if(distance < 0){ countdown.innerHTML = "NOW LIVE"; }
+    },1000);
+
+    // Slider Logic
+    const slider = document.getElementById('slider');
+    const dotsContainer = document.getElementById('dots');
+
+    let index = 0;
+    const total = slider.children.length;
+
+    // Create dots
+    for(let i=0;i<total;i++){
+      const dot = document.createElement('div');
+      dot.className = 'w-2 h-2 rounded-full bg-gray-600 opacity-50 cursor-pointer transition-all';
+      dot.addEventListener('click', ()=>{
+        index = i;
+        updateSlider();
+      });
+      dotsContainer.appendChild(dot);
+    }
+
+    function updateDots(){
+      [...dotsContainer.children].forEach((d, i)=>{
+        if(i===index){
+          d.classList.remove('bg-gray-600','opacity-50');
+          d.classList.add('bg-white','opacity-100','scale-125');
+        } else {
+          d.classList.remove('bg-white','opacity-100','scale-125');
+          d.classList.add('bg-gray-600','opacity-50');
+        }
+      });
+    }
+
+    function updateSlider(){
+      slider.style.transform = `translateX(-${index * 100}%)`;
+      updateDots();
+    }
+
+    // Auto slide
+    setInterval(()=>{
+      index = (index+1)%total;
+      updateSlider();
+    },3000);
+
+    // Swipe support
+    let startX = 0;
+    slider.addEventListener('touchstart', e=> startX = e.touches[0].clientX);
+    slider.addEventListener('touchend', e=>{
+      let endX = e.changedTouches[0].clientX;
+      if(startX - endX > 50){ index = (index+1)%total; }
+      else if(endX - startX > 50){ index = (index-1+total)%total; }
+      updateSlider();
+    });
+
+    // Init
+    updateSlider();
+  </script>
+
+</body>
+</html>
